@@ -36,6 +36,8 @@
 		30DA28E43051812700884E12 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DA28B93051812700884E12 /* SettingsView.swift */; };
 		30DA28E53051812700884E12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DA28BD3051812700884E12 /* AppDelegate.swift */; };
 		30DA28E63051812700884E12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DA28C63051812700884E12 /* SceneDelegate.swift */; };
+		30DA28E93051871300884E12 /* AppsFlyerLib-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 30DA28E83051871300884E12 /* AppsFlyerLib-Static */; };
+		30DA28EB305188B300884E12 /* AppTrackingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DA28EA305188B300884E12 /* AppTrackingCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,7 @@
 		30DA28C33051812700884E12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30DA28C53051812700884E12 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		30DA28C63051812700884E12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		30DA28EA305188B300884E12 /* AppTrackingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingCoordinator.swift; sourceTree = "<group>"; };
 		30F9AA983027A33700F78820 /* 3AIGirlfriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3AIGirlfriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47B51224A3D90FC66335188B /* Pods-3AIGirlfriend.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-3AIGirlfriend.release.xcconfig"; path = "Target Support Files/Pods-3AIGirlfriend/Pods-3AIGirlfriend.release.xcconfig"; sourceTree = "<group>"; };
 		A26C740319CC1B59FD7A8F9B /* Pods_3AIGirlfriend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_3AIGirlfriend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30DA28E93051871300884E12 /* AppsFlyerLib-Static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				30DA28963051812700884E12 /* RootView.swift */,
+				30DA28EA305188B300884E12 /* AppTrackingCoordinator.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -328,6 +333,9 @@
 				ru,
 			);
 			mainGroup = 30F9AA8F3027A33700F78820;
+			packageReferences = (
+				30DA28E73051871300884E12 /* XCRemoteSwiftPackageReference "AppsFlyerFramework-Static" */,
+			);
 			productRefGroup = 30F9AA993027A33700F78820 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -390,6 +398,7 @@
 				30DA28D43051812700884E12 /* CompanionPortraitView.swift in Sources */,
 				30DA28D53051812700884E12 /* View+App.swift in Sources */,
 				30DA28D63051812700884E12 /* L10n.swift in Sources */,
+				30DA28EB305188B300884E12 /* AppTrackingCoordinator.swift in Sources */,
 				30DA28D73051812700884E12 /* ChatMessage.swift in Sources */,
 				30DA28D83051812700884E12 /* Companion.swift in Sources */,
 				30DA28D93051812700884E12 /* NotificationManager.swift in Sources */,
@@ -440,7 +449,7 @@
 				CODE_SIGN_ENTITLEMENTS = 3AIGirlfriend/3AIGirlfriend.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = AR6AN34RS9;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 3AIGirlfriend/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dialogue AI: Virtual Chat";
@@ -479,7 +488,7 @@
 				CODE_SIGN_ENTITLEMENTS = 3AIGirlfriend/3AIGirlfriend.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = AR6AN34RS9;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 3AIGirlfriend/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dialogue AI: Virtual Chat";
@@ -652,6 +661,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		30DA28E73051871300884E12 /* XCRemoteSwiftPackageReference "AppsFlyerFramework-Static" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework-Static";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.18.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		30DA28E83051871300884E12 /* AppsFlyerLib-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30DA28E73051871300884E12 /* XCRemoteSwiftPackageReference "AppsFlyerFramework-Static" */;
+			productName = "AppsFlyerLib-Static";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 30F9AA903027A33700F78820 /* Project object */;
 }
