@@ -1,6 +1,5 @@
 import Combine
 import Foundation
-import Intents
 import UIKit
 import UserNotifications
 
@@ -62,10 +61,7 @@ final class NotificationManager: NSObject, ObservableObject {
             )
         }
 
-        let content = makeMessageContent(
-            body: body,
-            companion: companion
-        )
+        let content = makeContent(title: companion.name, body: body, companion: companion)
 
         // Slight delay so the system dialog / next screen can settle first.
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
@@ -83,7 +79,7 @@ final class NotificationManager: NSObject, ObservableObject {
             locale: .current,
             companion.name
         )
-        let content = makeMessageContent(body: body, companion: companion)
+        let content = makeContent(title: companion.name, body: body, companion: companion)
 
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: Self.inactivityInterval,
@@ -113,56 +109,16 @@ final class NotificationManager: NSObject, ObservableObject {
             .removePendingNotificationRequests(withIdentifiers: [id])
     }
 
-    /// Communication Notification: shows companion avatar instead of the app icon.
-    private func makeMessageContent(body: String, companion: Companion) -> UNNotificationContent {
+    private func makeContent(title: String, body: String, companion: Companion) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = companion.name
+        content.title = title
         content.body = body
         content.sound = .default
-
-        let avatarName = companion.primaryPhotoName
-        let avatar = avatarName.flatMap { INImage(named: $0) }
-
-        let handle = INPersonHandle(value: companion.id, type: .unknown)
-        let person = INPerson(
-            personHandle: handle,
-            nameComponents: nil,
-            displayName: companion.name,
-            image: avatar,
-            contactIdentifier: nil,
-            customIdentifier: companion.id
-        )
-
-        let intent = INSendMessageIntent(
-            recipients: nil,
-            outgoingMessageType: .outgoingMessageText,
-            content: body,
-            speakableGroupName: nil,
-            conversationIdentifier: "aigf.\(companion.id)",
-            serviceName: nil,
-            sender: person,
-            attachments: nil
-        )
-        if let avatar {
-            intent.setImage(avatar, forParameterNamed: \.sender)
+        if let photo = companion.primaryPhotoName,
+           let attachment = Self.attachment(fromAssetNamed: photo) {
+            content.attachments = [attachment]
         }
-
-        let interaction = INInteraction(intent: intent, response: nil)
-        interaction.direction = .incoming
-        interaction.donate(completion: nil)
-
-        do {
-            return try content.updating(from: intent)
-        } catch {
-            #if DEBUG
-            print("Communication notification update failed: \(error)")
-            #endif
-            // Fallback: attach photo as notification thumbnail
-            if let avatarName, let attachment = Self.attachment(fromAssetNamed: avatarName) {
-                content.attachments = [attachment]
-            }
-            return content
-        }
+        return content
     }
 
     private static func attachment(fromAssetNamed name: String) -> UNNotificationAttachment? {
